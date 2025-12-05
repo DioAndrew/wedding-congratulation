@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Love Story</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        @font-face {
+            font-family: 'UVF Aphrodite Pro';
+            font-style: normal;
+            font-weight: normal;
+            src: local('UVF Aphrodite Pro'), url('UVF Aphrodite Pro.woff') format('woff');
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: #f8f4f0;
+            color: #3a3a3a;
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        .story-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 100px 20px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .story-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .chapter {
+            max-width: 700px;
+            text-align: center;
+        }
+
+        .chapter-number {
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            color: #c9a78d;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
+
+        .chapter-title {
+            font-family: "UVF Aphrodite Pro";
+            font-size: 3rem;
+            color: #8b6f5c;
+            margin-bottom: 40px;
+            font-weight: normal;
+            font-style: italic;
+        }
+
+        .story-text {
+            font-size: 1.3rem;
+            color: #5a5a5a;
+            line-height: 2;
+            margin-bottom: 30px;
+            text-align: justify;
+            text-indent: 50px;
+        }
+
+        .opening {
+            background: linear-gradient(to bottom, #ffeef2, #fff9f5);
+            min-height: 100vh;
+            justify-content: center;
+        }
+
+        .opening .chapter-title {
+            font-size: 4rem;
+            color: #d4a5a5;
+            margin-bottom: 20px;
+        }
+
+        .opening .subtitle {
+            font-size: 1.2rem;
+            color: #a08080;
+            font-style: italic;
+            letter-spacing: 2px;
+        }
+
+        .decorative-element {
+            font-size: 2rem;
+            margin: 40px 0;
+            color: #d4a5a5;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .illustration {
+            font-size: 4rem;
+            margin: 30px 0;
+            filter: grayscale(20%);
+            opacity: 0.8;
+        }
+
+        .section-1 {
+            background: #fff;
+        }
+
+        .section-2 {
+            background: linear-gradient(to bottom, #fff, #fef8f5);
+        }
+
+        .section-3 {
+            background: linear-gradient(to bottom, #fef8f5, #fff5f0);
+        }
+
+        .section-4 {
+            background: linear-gradient(to bottom, #fff5f0, #ffeef2);
+        }
+
+        .section-5 {
+            background: linear-gradient(to bottom, #ffeef2, #fff);
+        }
+
+        .ending {
+            background: linear-gradient(to bottom, #fff, #f0e9e5);
+            min-height: 80vh;
+        }
+
+        .ending .chapter-title {
+            font-size: 2.5rem;
+            color: #8b6f5c;
+        }
+
+        .quote {
+            font-size: 1.5rem;
+            color: #a08080;
+            font-style: italic;
+            margin: 50px 0;
+            padding: 30px;
+            border-left: 3px solid #d4a5a5;
+            text-align: left;
+            text-indent: 0;
+        }
+
+        .signature {
+            font-size: 1.2rem;
+            color: #a08080;
+            font-style: italic;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            color: #d4a5a5;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        .page-ornament {
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #d4a5a5, transparent);
+            margin: 40px auto;
+        }
+        
+        .sender{
+            font-size: 2rem;
+            margin: 40px 0;
+            color: #d4a5a5;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .model-container{
+            width: 500px;
+            height: 500px;
+        }
+
+        model-viewer{
+            width: 100%;
+            height: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .chapter-title { font-size: 2rem; }
+            .opening .chapter-title { font-size: 2.5rem; }
+            .story-text { 
+                font-size: 1.1rem;
+                text-indent: 30px;
+            }
+            .quote { font-size: 1.2rem; }
+            .chapter { padding: 0 10px; }
+            .model-container{
+                width: 350px;
+            }
+            .signature{
+                font-size: 0.9rem;
+            }
+            .sender{
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+</head>
+<body>
+    <section class="story-section opening visible">
+        <div class="chapter">
+            <div class="decorative-element">✦</div>
+            <h1 class="chapter-title">Once Upon a Time</h1>
+            <p class="subtitle">A Love Story Written in the Stars and Knitted by Fate</p>
+            <div class="scroll-indicator">↓</div>
+        </div>
+    </section>
+
+    <section class="story-section section-1">
+        <div class="chapter">
+            <p class="chapter-number">Chapter One</p>
+            <h2 class="chapter-title">Two Hearts</h2>
+            <div class="illustration">👫</div>
+            <p class="story-text">
+                Di dunia yang dipenuhi miliaran jiwa, dua hati saling menemukan. Melawan segala rintangan, melalui labirin perjalanan hidup, takdir menenun keajaibannya dan mempertemukan dua insan yang ditakdirkan menjadi satu. Dimulai sebagai pertemuan tak terduga berkembang menjadi sesuatu yang luar biasa—sebuah ikatan yang melampaui ruang dan waktu.
+            </p>
+            <div class="page-ornament"></div>
+        </div>
+    </section>
+
+    <section class="story-section section-2">
+        <div class="chapter">
+            <p class="chapter-number">Chapter Two</p>
+            <h2 class="chapter-title">The Promise</h2>
+            <div class="illustration">💍</div>
+            <p class="story-text">
+                Hari ini, dikelilingi oleh orang-orang yang paling mereka cintai, dua jiwa ini berdiri berhadapan dan mengucapkan janji suci. Dengan kata-kata penuh pengabdian dan mata yang dipenuhi air mata bahagia, mereka berjanji untuk berjalan melewati kehidupan bersama, untuk menghadapi setiap badai bersama-sama, dan merayakan setiap kemenangan sebagai satu kesatuan.
+            </p>
+            <div class="page-ornament"></div>
+        </div>
+    </section>
+
+    <section class="story-section section-3">
+        <div class="chapter">
+            <p class="chapter-number">Chapter Three</p>
+            <h2 class="chapter-title">Building Dreams</h2>
+            <div class="illustration">🏡</div>
+            <p class="story-text">
+                Kini dimulailah petualangan indah membangun kehidupan bersama. Sebuah rumah yang dipenuhi tawa, dinding yang bergema dengan cinta, dan ruangan yang menyimpan kenangan berharga yang tak terhitung. Bersama mereka akan menanam taman harapan, memupuk mimpi, dan menciptakan tempat berlindung di mana cinta tumbuh lebih kuat setiap musim berganti.
+            </p>
+            <div class="page-ornament"></div>
+        </div>
+    </section>
+
+    <section class="story-section section-4">
+        <div class="chapter">
+            <p class="chapter-number">Chapter Four</p>
+            <h2 class="chapter-title">Forever Begins</h2>
+            <div class="illustration">✨</div>
+            <p class="story-text">
+                Ini bukanlah akhir, melainkan awal yang gemilang. Halaman pertama dari sebuah kisah yang akan ditulis hari demi hari, penuh dengan bab-bab petualangan, syair-syair kelembutan, dan petikan-petikan kebahagiaan yang mendalam. Sebuah kisah di mana cinta menjadi penulis sekaligus pesannya, di mana setiap hari menambahkan garis indah baru pada kisah abadi mereka.
+            </p>
+            <div class="page-ornament"></div>
+        </div>
+    </section>
+
+    <section class="story-section ending">
+        <div class="chapter">
+            <div class="decorative-element">✦</div>
+            <h2 class="chapter-title">And They Lived Happily</h2>
+            <div class="model-container">
+                <model-viewer src="./wedding cake 3d model.glb" alt="Cake 3d model" autoplay auto-rotate camera-controls interaction-prompt="none" disable-pan disable-zoom></model-viewer>
+            </div>
+            <p class="signature">— Congratulations Nanda on Your Wedding Day —</p>
+            <div class="sender">From Squad NERD with ♥</div>
+        </div>
+    </section>
+
+
+    
+    <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.story-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Remove scroll indicator after first scroll
+        let hasScrolled = false;
+        window.addEventListener('scroll', () => {
+            if (!hasScrolled && window.scrollY > 100) {
+                hasScrolled = true;
+                document.querySelector('.scroll-indicator').style.opacity = '0';
+            }
+        });
+    </script>
+</body>
+</html>
